@@ -5,18 +5,33 @@ interface User {
   id : number;
   name : string;
 }
+
+interface Props{
+  sortOrder : string;
+}
+
 const UserTable = async() => {
     const res = await fetch('https://jsonplaceholder.typicode.com/users', {cache: 'no-store'})
     const users: User[] = await res.json();
     return (
-    <table className='p-5'>
+      <>
         <p>{new Date().toLocaleTimeString()}</p>
-        <ul>
-            {users.map(user => <li key={user.id}>{user.name}</li>)}
-        </ul>
-    </table>
-      
-  )
-}
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map(user => (
+              <tr key={user.id}>
+                <td>{user.name}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+     </>
+)
+}    
 
 export default UserTable
